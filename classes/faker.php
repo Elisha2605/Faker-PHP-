@@ -19,9 +19,6 @@ class Faker
         /** Return fake CPR */
         require __DIR__ . '/../src/fetch_data.php';
 
-        $key = array_rand($persons);
-        $value = $persons[$key];
-        
         $timestamp = mt_rand(1, time());
         $randomDate = date("dmy", $timestamp);
 
@@ -29,13 +26,13 @@ class Faker
         $odd = rand(0, 9) | 1;
 
         $random_cpr = $randomDate . "-" . rand(111, 999);
-        
         $default_CPR = $random_cpr;
 
         $this->CPR = $random_cpr;
         $this->dateOfBirth = $randomDate;
 
-        
+        $key = array_rand($persons);
+        $value = $persons[$key];
         if (empty($this->gender)) {
             if ($value['gender'] == 'female') {
                 return $default_CPR . $even;
@@ -121,7 +118,11 @@ class Faker
         $key = array_rand($postal_codes_and_town);
         $post_and_town = $postal_codes_and_town[$key];
 
-        $this->address = $street . " " . $house_num . $appartement_num . ", " . $floor_num . ", " . $door_num . ", " . $post_and_town['postal_code'] . " " . $post_and_town['town_name'];
+        $this->address = $street . " " . 
+                $house_num . $appartement_num . ", " . 
+                $floor_num . ", " . $door_num . ", " . 
+                $post_and_town['postal_code'] . " " . 
+                $post_and_town['town_name'];
 
         return $this->address;
     }
@@ -205,16 +206,6 @@ class Faker
         }
         return $randomString;
     }
-   
-    // function getJsonData(){
-    // $var = get_object_vars($this);
-    // foreach ($var as &$value) {
-    //     if (is_object($value) && method_exists($value,'getJsonData')) {
-    //         $value = $value->getJsonData();
-    //     }
-    // }
-    // return $var;
-    // }
 }
 
 
