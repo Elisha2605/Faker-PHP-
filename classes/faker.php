@@ -145,10 +145,6 @@ class Faker
             $random_num = mt_rand(11111, 99999);
             $this->phone = $random_phone_digits . $random_num;
             return $this->phone;
-        } elseif (strlen($random_phone_digits) == 7) {
-            $random_num = mt_rand(11, 99);
-            $this->phone = $random_phone_digits . $random_num;
-            return $this->phone;
         }
     }
     public function getAllInfo(): array
@@ -167,13 +163,30 @@ class Faker
         ];
         return $data;
     }
-    public function getAllInfoBuilk(): array
+    public function getAllInfoBuilk($length): array
     {
         /** Return fake person information in bulk (all information for 2 to 100 persons) */
         require __DIR__ . '/../src/fetch_data.php';
 
         $data = array();
-        for ($i=0; $i < rand(2, 100); $i++) { 
+        if ($length >= 2 && $length <= 100) {
+            for ($i=0; $i < $length; $i++) { 
+                $data[] = $this->getAllInfo();
+            }
+            return $data; 
+        }
+        $data = [
+            "Error"=>"Range must be between 2 and 100"
+        ];
+        return $data;
+    }
+    public function getAllInfoInRange($length): array
+    {
+        /** Return fake person information in bulk (all information for 2 to 100 persons) */
+        require __DIR__ . '/../src/fetch_data.php';
+
+        $data = array();
+        for ($i=0; $i < $length; $i++) { 
             $data[] = $this->getAllInfo();
         }
         return $data; 

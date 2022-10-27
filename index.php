@@ -5,7 +5,8 @@ require ('classes/faker.php');
 $p = new Faker();
 
 
-$person = $p->getCPR_FullNameAndGender_dateOfBirth();
+$person = $p->getPhone();
 
-$cpr = $person['cpr'];
-echo $cpr;
+echo "<pre>";
+print_r($person);
+echo "<pre>";
